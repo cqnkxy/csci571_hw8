@@ -74,7 +74,7 @@
                             <div class="row input-group">
                               <div class="col-md-8">Legislators By State</div>
                               <div class="col-md-4">
-                                <select class="selectpicker" ng-model="q" id="search">
+                                <select class="selectpicker" ng-model="search.state_name" id="search">
                                   <option value=''>All States</option>
                                   <option>Alabama</option>
                                   <option>Alaska</option>
@@ -145,7 +145,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr dir-paginate="legislator in legislators | itemsPerPage: pageSize" current-page="currentPage">
+                                <tr dir-paginate="legislator in legislators | filter: search : true| itemsPerPage: pageSize" current-page="currentPage">
                                   <td><img ng-src="{{ legislator.party }}" width='25'/></td>
                                   <td>{{ legislator.first_name + " " + legislator.last_name}} </td>
                                   <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
