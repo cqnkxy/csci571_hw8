@@ -76,7 +76,7 @@ function SidebarControl($scope, $compile, $http) {
       });
     }
   };
-  // angular.element(document).ready(legislator_func);
+  angular.element(document).ready(legislator_func);
   $scope.legislators = legislator_func;
 }
 
