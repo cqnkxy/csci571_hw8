@@ -3,7 +3,7 @@
 <head>
   <link data-require="bootstrap-css@3.3.2" data-semver="3.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script data-require="angular.js@1.4.7" data-semver="1.4.7" src="https://code.angularjs.org/1.4.7/angular.js"></script>
-  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script data-require="jquery@*" data-semver="2.1.1" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script data-require="bootstrap@3.3.2" data-semver="3.3.2" src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   <script src="dirPagination.js"></script>
@@ -24,173 +24,185 @@
       <div class="clearfix visible-md-block"></div>
 		</div>
 	</div>
-  <div id="wrapper" ng-controller="SidebarControl">
+  <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-          <li class="active">
-              <a data-toggle="tab" href="#legislators_view" id="legislators" ng-click='legislators()'><span class="glyphicon glyphicon-user"></span> Legislators</a>
-          </li>
-          <li>
-              <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> Bills</a>
-          </li>
-          <li>
-              <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> Committees</a>
-          </li>
-          <li>
-              <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> Favorites</a>
-          </li>
+        <li class="active">
+          <div ng-controller="legislatorsGetController">
+            <a data-toggle="tab" href="#legislators_view" id="legislators" ng-click='legislators_get()'><span class="glyphicon glyphicon-user"></span> Legislators</a>
+          </div>
+        </li>
+        <li>
+          <div ng-controller="billsGetController">
+          <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> Bills</a>
+          </div>
+        </li>
+        <li>
+            <div ng-controller="committeesGetController">
+            <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> Committees</a>
+            </div>
+        </li>
+        <li>
+            <div ng-controller="favoritesGetController">
+            <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> Favorites</a>
+            </div>
+        </li>
       </ul>
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class='container-fluid'>
-        <!-- lagislators_view -->
-        <div id='legislators_view' class="tab-pane fade in active">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-              <h1>Legislators</h1>
-              <div class="carousel slide">
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a data-toggle="tab" href="#byState">By State</a></li>
-                      <li><a data-toggle="tab" href="#House">House</a></li>
-                      <li><a data-toggle="tab" href="#Senate">Senate</a></li>
-                    </ul>
-                    <div id="byState" class="tab-pane fade in active">
-                      <div class="container-fluid">
-                        <div class="row input-group">
-                          <div class="col-md-8">Legislators By State</div>
-                          <div class="col-md-4">
-                            <select class="selectpicker" ng-model="q" id="search">
-                              <option value=''>All States</option>
-                              <option>Alabama</option>
-                              <option>Alaska</option>
-                              <option>Arizona</option>
-                              <option>Arkansas</option>
-                              <option>California</option>
-                              <option>Colorado</option>
-                              <option>Connecticut</option>
-                              <option>Delaware</option>
-                              <option>Florida</option>
-                              <option>Georgia</option>
-                              <option>Hawaii</option>
-                              <option>Idaho</option>
-                              <option>Illinois</option>
-                              <option>Indiana</option>
-                              <option>Iowa</option>
-                              <option>Kansas</option>
-                              <option>Kentucky</option>
-                              <option>Louisiana</option>
-                              <option>Maine</option>
-                              <option>Maryland</option>
-                              <option>Massachusetts</option>
-                              <option>Michigan</option>
-                              <option>Minnesota</option>
-                              <option>Mississippi</option>
-                              <option>Missouri</option>
-                              <option>Montana</option>
-                              <option>Nebraska</option>
-                              <option>Nevada</option>
-                              <option>New Hampshire</option>
-                              <option>New Jersey</option>
-                              <option>New Mexico</option>
-                              <option>New York</option>
-                              <option>North Carolina</option>
-                              <option>North Dakota</option>
-                              <option>Ohio</option>
-                              <option>Oklahoma</option>
-                              <option>Oregon</option>
-                              <option>Pennsylvania</option>
-                              <option>Rhode Island</option>
-                              <option>South Carolina</option>
-                              <option>South Dakota</option>
-                              <option>Tennessee</option>
-                              <option>Texas</option>
-                              <option>Utah</option>
-                              <option>Vermont</option>
-                              <option>Virginia</option>
-                              <option>Washington</option>
-                              <option>West Virginia</option>
-                              <option>Wisconsin</option>
-                              <option>Wyoming</option>
-                            </select>
+        <div class="tab-content">
+          <!-- lagislators_view -->
+          <div id='legislators_view' class="tab-pane fade in active"  ng-controller="legislatorsViewController">
+            <div class="row">
+              <div class="col-md-12 col-lg-12">
+                <h1>Legislators</h1>
+                <div class="carousel slide">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#byState">By State</a></li>
+                        <li><a data-toggle="tab" href="#House">House</a></li>
+                        <li><a data-toggle="tab" href="#Senate">Senate</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div id="byState" class="tab-pane fade in active">
+                          <div class="container-fluid">
+                            <div class="row input-group">
+                              <div class="col-md-8">Legislators By State</div>
+                              <div class="col-md-4">
+                                <select class="selectpicker" ng-model="q" id="search">
+                                  <option value=''>All States</option>
+                                  <option>Alabama</option>
+                                  <option>Alaska</option>
+                                  <option>Arizona</option>
+                                  <option>Arkansas</option>
+                                  <option>California</option>
+                                  <option>Colorado</option>
+                                  <option>Connecticut</option>
+                                  <option>Delaware</option>
+                                  <option>Florida</option>
+                                  <option>Georgia</option>
+                                  <option>Hawaii</option>
+                                  <option>Idaho</option>
+                                  <option>Illinois</option>
+                                  <option>Indiana</option>
+                                  <option>Iowa</option>
+                                  <option>Kansas</option>
+                                  <option>Kentucky</option>
+                                  <option>Louisiana</option>
+                                  <option>Maine</option>
+                                  <option>Maryland</option>
+                                  <option>Massachusetts</option>
+                                  <option>Michigan</option>
+                                  <option>Minnesota</option>
+                                  <option>Mississippi</option>
+                                  <option>Missouri</option>
+                                  <option>Montana</option>
+                                  <option>Nebraska</option>
+                                  <option>Nevada</option>
+                                  <option>New Hampshire</option>
+                                  <option>New Jersey</option>
+                                  <option>New Mexico</option>
+                                  <option>New York</option>
+                                  <option>North Carolina</option>
+                                  <option>North Dakota</option>
+                                  <option>Ohio</option>
+                                  <option>Oklahoma</option>
+                                  <option>Oregon</option>
+                                  <option>Pennsylvania</option>
+                                  <option>Rhode Island</option>
+                                  <option>South Carolina</option>
+                                  <option>South Dakota</option>
+                                  <option>Tennessee</option>
+                                  <option>Texas</option>
+                                  <option>Utah</option>
+                                  <option>Vermont</option>
+                                  <option>Virginia</option>
+                                  <option>Washington</option>
+                                  <option>West Virginia</option>
+                                  <option>Wisconsin</option>
+                                  <option>Wyoming</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <table class="table table-hover" id="legislators_basic">
+                              <thead>
+                                <tr>
+                                  <th>Party</th>
+                                  <th>Name</th>
+                                  <th>Chamber</th>
+                                  <th>District</th>
+                                  <th>State</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr dir-paginate="legislator in legislators | itemsPerPage: pageSize" current-page="currentPage">
+                                  <td><img ng-src="{{ legislator.party }}" width='25'/></td>
+                                  <td>{{ legislator.first_name + " " + legislator.last_name}} </td>
+                                  <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
+                                  <td>{{ legislator.district }}</td>
+                                  <td>{{ legislator.state_name }}</td>
+                                  <td>View Details</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                          </div>
+                          <div ng-controller="PageController" class="page-controller">
+                            <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <br>
-                      <div class="panel panel-default">
-                        <div class="panel-body">
-                          <table class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th>Party</th>
-                              <th>Name</th>
-                              <th>Chamber</th>
-                              <th>District</th>
-                              <th>State</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr dir-paginate="legislator in legislators_basic | filter:q | itemsPerPage: pageSize" current-page="currentPage">
-                              <td><img ng-src="{{ legislator.party }}" width='25'/></td>
-                              <td>{{ legislator.name.whole_name }}</td>
-                              <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
-                              <td>{{ legislator.district }}</td>
-                              <td>{{ legislator.state }}</td>
-                              <td>View Details</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div id="House" class="tab-pane fade">
+                        </div>
+                        <div id="Senate" class="tab-pane fade">
                         </div>
                       </div>
-                      <div ng-controller="PageController" class="page-controller">
-                        <div class="text-center">
-                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="House" class="tab-pane fade">
-                    </div>
-                    <div id="Senate" class="tab-pane fade">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- #lagislators_view -->
-        <!-- bills_view -->
-        <div id="bills_view" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <h1>bills pending</h1>
+          <!-- #lagislators_view -->
+          <!-- bills_view -->
+          <div id="bills_view" class="tab-pane fade">
+            <div class="row">
+              <div class="col-md-12 col-lg-12">
+                  <h1>bills pending</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- #bills_view -->
-        <!-- committees_view -->
-        <div id="committees_view" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <h1>committees pending</h1>
+          <!-- #bills_view -->
+          <!-- committees_view -->
+          <div id="committees_view" class="tab-pane fade">
+            <div class="row">
+              <div class="col-md-12 col-lg-12">
+                  <h1>committees pending</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- #committees_view -->
-        <!-- favorites_view -->
-        <div id="favorites_view" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <h1>favorites pending</h1>
+          <!-- #committees_view -->
+          <!-- favorites_view -->
+          <div id="favorites_view" class="tab-pane fade">
+            <div class="row">
+              <div class="col-md-12 col-lg-12">
+                  <h1>favorites pending</h1>
+              </div>
             </div>
           </div>
+          <!-- #favorites_view -->
         </div>
-        <!-- #favorites_view -->
       </div>
     </div>
     <!-- /#page-content-wrapper -->
