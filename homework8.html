@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-  <link data-require="bootstrap-css@3.3.2" data-semver="3.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <link data-require="bootstrap-css@3.3.7" data-semver="3.3.7" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <script data-require="angular.js@1.4.7" data-semver="1.4.7" src="https://code.angularjs.org/1.4.7/angular.js"></script>
   <script data-require="jquery@*" data-semver="2.1.1" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script data-require="bootstrap@3.3.2" data-semver="3.3.2" src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   <script src="dirPagination.js"></script>
   <script src="script.js"></script>
@@ -60,9 +60,10 @@
             <div class="row">
               <div class="col-md-12 col-lg-12">
                 <h1>Legislators</h1>
-                <div class="carousel slide">
+                <div class="carousel slide" id="legislator_carousel" data-interval="false">
                   <div class="carousel-inner">
-                    <div class="item active">
+                    <!-- basic -->
+                    <div class="item active" id="legislators_basic_view">
                       <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#byState">By State</a></li>
                         <li><a data-toggle="tab" href="#House">House</a></li>
@@ -151,7 +152,7 @@
                                   <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
                                   <td>{{ legislator.district }}</td>
                                   <td>{{ legislator.state_name }}</td>
-                                  <td>View Details</td>
+                                  <td><a class="right btn btn-primary" href="#legislator_carousel" role="button" data-slide="next">View Details</a></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -169,6 +170,16 @@
                         </div>
                       </div>
                     </div>
+                    <!-- # basic -->
+                    <!-- detail -->
+                    <div class="item" id="legislators_detail_view">
+                      <div class="row">
+                        <div class="col-md-8">
+                        <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>Details</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- # detail -->
                   </div>
                 </div>
               </div>
