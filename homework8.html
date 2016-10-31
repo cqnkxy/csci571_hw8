@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <link data-require="bootstrap-css@3.3.2" data-semver="3.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
+  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script data-require="bootstrap@3.3.2" data-semver="3.3.2" src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="dirPagination.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid navbar navbar-fixed-top" id="logo">
+		<div class="row">
+	    <div class="col-xs-3 col-md-3 col-lg-3">	
+				<button type="button" id="menu-toggle" class="btn btn-link">
+					<span class="glyphicon glyphicon-menu-hamburger"></span>
+				</button>
+			</div>
+			<div class="col-xs-6 col-md-6 col-lg-6 col-xs-offset-2">
+					<a href="http://sunlightfoundation.com/" target="_blank"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/logo.png" alt="logo" width=60>Congress API</a>
+	    </div>
+      <div class="clearfix visible-md-block"></div>
+		</div>
+	</div>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" ng-controller="SidebarControl">
+      <ul class="sidebar-nav">
+          <li>
+              <a href="#" id="legislators" ng-click='legislators()'><span class="glyphicon glyphicon-user"></span> Legislators</a>
+          </li>
+          <li>
+              <a href="#" id="bills"><span class="glyphicon glyphicon-file"></span> Bills</a>
+          </li>
+          <li>
+              <a href="#" id="committees"><span class="glyphicon glyphicon-log-in"></span> Committees</a>
+          </li>
+          <li>
+              <a href="#" id="favorites"><span class="glyphicon glyphicon-star"></span> Favorites</a>
+          </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class='container-fluid'>
+        <div class="row">
+          <div class="col-md-12 col-lg-12">
+            <div ng-controller="TableControl" class="table-controller">
+                <div id='dynamicTable'>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+    <!-- /#wrapper -->
+</body>
+</html>
+
+<script>
+$("#menu-toggle").click(function(e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+});
+</script>
