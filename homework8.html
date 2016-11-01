@@ -2,7 +2,10 @@
 <html ng-app="myApp">
 <head>
   <link data-require="bootstrap-css@3.3.7" data-semver="3.3.7" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <script data-require="angular.js@1.4.7" data-semver="1.4.7" src="https://code.angularjs.org/1.4.7/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>
   <script data-require="jquery@*" data-semver="2.1.1" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css" />
@@ -30,22 +33,22 @@
       <ul class="sidebar-nav">
         <li class="active">
           <div ng-controller="legislatorsGetController">
-            <a data-toggle="tab" href="#legislators_view" id="legislators" ng-click='legislators_get()'><span class="glyphicon glyphicon-user"></span> Legislators</a>
+            <a data-toggle="tab" href="#legislators_view" id="legislators"><span class="glyphicon glyphicon-user"></span> <span class="hidden-sm hidden-xs">Legislators</span></a>
           </div>
         </li>
         <li>
           <div ng-controller="billsGetController">
-          <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> Bills</a>
+          <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> <span class="hidden-sm hidden-xs">Bills</span></a>
           </div>
         </li>
         <li>
             <div ng-controller="committeesGetController">
-            <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> Committees</a>
+            <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> <span class="hidden-xs hidden-sm">Committees</span></a>
             </div>
         </li>
         <li>
             <div ng-controller="favoritesGetController">
-            <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> Favorites</a>
+            <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> <span class="hidden-xs hidden-sm">Favorites</span></a>
             </div>
         </li>
       </ul>
@@ -60,6 +63,7 @@
             <div class="row">
               <div class="col-md-12 col-lg-12">
                 <h1>Legislators</h1>
+                <hr />
                 <div class="carousel slide" id="legislator_carousel" data-interval="false">
                   <div class="carousel-inner">
                     <!-- basic -->
@@ -147,12 +151,12 @@
                               </thead>
                               <tbody>
                                 <tr dir-paginate="legislator in legislators | filter: search : true| itemsPerPage: pageSize" current-page="currentPage">
-                                  <td><img ng-src="{{ legislator.party }}" width='25'/></td>
+                                  <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                   <td>{{ legislator.first_name + " " + legislator.last_name}} </td>
                                   <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
                                   <td>{{ legislator.district }}</td>
                                   <td>{{ legislator.state_name }}</td>
-                                  <td><a class="right btn btn-primary" href="#legislator_carousel" role="button" data-slide="next">View Details</a></td>
+                                  <td><a class="right btn btn-primary" href="#legislator_carousel" role="button" data-slide="next" ng-click="details(legislator)">View Details</a></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -173,10 +177,94 @@
                     <!-- # basic -->
                     <!-- detail -->
                     <div class="item" id="legislators_detail_view">
-                      <div class="row">
-                        <div class="col-md-8">
-                        <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>Details</a>
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-12">
+                          <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
+                          </div>
                         </div>
+                        <hr />
+
+                        <div class="row">
+                          <!-- personal info -->
+                          <div class="col-lg-6 col-md-8 col-sm-12">
+                            <table class="table table-hover">
+                              <td><img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
+                              </td>
+                              <td>
+                                <table class="table">
+                                  <tr><td>{{specific_legislator.title + ". " + specific_legislator.last_name + ", " + specific_legislator.first_name }}</td></tr>
+                                  <tr><td><a href="mailto:{{ specific_legislator.oc_email }}">{{ specific_legislator.oc_email }}</a></td></tr>
+                                  <tr><td>Chamber: {{ specific_legislator.chamber.name}}</td></tr>
+                                  <tr><td>Contact: <a href="tel:{{ specific_legislator.phone }}">{{ specific_legislator.phone }}</a></td></tr>
+                                  <tr><td><img src="{{specific_legislator.party.src}}" alt="party_img" width="25">{{specific_legislator.party.name }}</td></tr>
+                                </table>
+                              </td>
+                              <tr><td>Start Term</td><td>{{ specific_legislator.term_start}}</td></tr>
+                              <tr><td>End Term</td><td>{{specific_legislator.term_end}}</td></tr>
+                              <tr><td>Term</td><td><uib-progressbar animate="false" value="progress" type="success"><b>{{progress}}%</b></uib-progressbar></td></tr>
+                              <tr><td>Office</td><td>{{specific_legislator.office}}</td></tr>
+                              <tr><td>State</td><td>{{specific_legislator.state_name}}</td></tr>
+                              <tr><td>Fax</td><td>
+                              <a href="fax:{{specific_legislator.fax}}">{{specific_legislator.fax}}</a></td></tr>
+                              <tr><td>Birthday</td><td>{{specific_legislator.birthday}}</td></tr>
+                              <tr><td>Social Links</td>
+                              <td>
+                                <a href="http://www.twitter.com/{{specific_legislator.twitter_id}}" target='_blank'><img src="http://cs-server.usc.edu:45678/hw/hw8/images/t.png" alt="twitter" width="50"></a>
+                                <a href="http://www.facebook.com/{{specific_legislator.facebook_id}}" target='_blank'><img src="http://cs-server.usc.edu:45678/hw/hw8/images/f.png" alt="facebook" width="50"></a>
+                                <a href="{{specific_legislator.website}}" target='_blank'><img src="http://cs-server.usc.edu:45678/hw/hw8/images/w.png" alt="website" width="50"></a>
+                              </td>
+                              </tr>
+                            </table>                    
+                          </div>
+                          <!-- #personal info -->
+                          <!-- committees and bills -->
+                          <div class="col-lg-6 col-md-8 col-sm-12">
+                            <h4>Committees</h4>
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Chamber</th>
+                                  <th>Committee ID</th>
+                                  <th>Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="committee in committees">
+                                  <td>{{committee.chamber}}</td>
+                                  <td>{{committee.committee_id}}</td>
+                                  <td>{{committee.name}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <h4>Bills</h4>
+                            <table class="table table hover">
+                              <thead>
+                                <tr>
+                                  <th>Bill ID</th>
+                                  <th>Title</th>
+                                  <th>Chamber</th>
+                                  <th>Bill Type</th>
+                                  <th>Congress</th>
+                                  <th>Link</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="bill in bills">
+                                  <td>{{bill.bill_id}}</td>
+                                  <td>{{bill.short_title}}</td>
+                                  <td>{{bill.chamber}}</td>
+                                  <td>{{bill.bill_type}}</td>
+                                  <td>{{bill.congress}}</td>
+                                  <td><a href="{{bill.last_version.urls.pdf}}" target="_blank">Link</a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- #committees and bills -->
+                        </div>
+
                       </div>
                     </div>
                     <!-- # detail -->

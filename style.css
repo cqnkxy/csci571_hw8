@@ -49,7 +49,7 @@
 
 #page-content-wrapper {
     width: 100%;
-    position: absolute;
+    position: fixed;
     padding: 15px;
 }
 
@@ -108,7 +108,7 @@
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 250px;
+        padding-left: 180px;
     }
 
     #wrapper.toggled {
@@ -134,20 +134,8 @@
     }
 }
 
-.table-controller {
-  border: 1px solid #fcc;
-  padding: 5px;
-  margin: 3px;
-}
-.table-controller small {
-  color: #c99;
-}
-
-.third-controller {
-  border: 1px solid #cfc;
-  padding: 5px;
-  margin: 3px;
-}
-.third-controller small {
-  color: #9c9;
-}
+/*@media(max-width: 767px) {
+    #sidebar-wrapper {
+        width: 100px;
+    }
+}*/

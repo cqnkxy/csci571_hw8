@@ -1,4 +1,7 @@
-var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp', 
+	['angularUtils.directives.dirPagination',
+	'ngAnimate', 'ngSanitize', 'ui.bootstrap']
+);
 
 myApp.service("legislatorsService", function() {
 	var legislators = [];
@@ -21,11 +24,20 @@ function PageController($scope) {
 
 function parse_legislator(tmp) {
 	if (tmp.party == 'R') {
-		tmp.party = "http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
+		tmp.party = {
+			src: "http://cs-server.usc.edu:45678/hw/hw8/images/r.png",
+			name: "Republic",
+		};
 	} else if (tmp.party == 'D') {
-		tmp.party = "http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+		tmp.party = {
+			src: "http://cs-server.usc.edu:45678/hw/hw8/images/d.png",
+			name: "Democrat",
+		};
 	} else {
-		tmp.party = "http://independentamericanparty.org/wp-content/themes/v/images/logo-american-heritage-academy.png";
+		tmp.party = {
+			src: "http://independentamericanparty.org/wp-content/themes/v/images/logo-american-heritage-academy.png",
+			name: "Independent",
+		};
 	}
 	if (tmp.chamber == "house") {
 		tmp.chamber = {
@@ -65,18 +77,31 @@ function legislatorsGetController($scope, $http, legislatorsService) {
 					legislators.push(tmp);
 				}
 				sort_state_lastname(legislators);
-				console.log(legislators);
 			});
 		}
 	};
 	angular.element(document).ready(legislator_get);
-	$scope.legislators_get = legislator_get;
 }
 
-function legislatorsViewController($scope, legislatorsService) {
+function legislatorsViewController($scope, $http, legislatorsService) {
 	$scope.currentPage = 1;
 	$scope.pageSize = 10;
 	$scope.legislators = legislatorsService.list();
+	$scope.specific_legislator = {};
+	$scope.details = function(l) {
+		$scope.progress = Math.round(100*(new Date() - new Date(l.term_start))
+			/ (new Date(l.term_end) - new Date(l.term_start)));
+		$scope.specific_legislator = l;
+		console.log(l);
+		$http.get(`congress.php?legislator_details=true&bioguide_id=${l.bioguide_id}`)
+		.then(function(response) {
+			console.log(response);
+			$scope.bills = response.data[0].results.splice(0, 5);
+			$scope.committees = response.data[1].results.splice(0, 5);
+			console.log($scope.committees);
+			console.log($scope.bills);
+		});
+	};
 }
 
 
