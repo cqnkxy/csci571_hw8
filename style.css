@@ -24,17 +24,13 @@
     background: #F5F5F5;
 }
 
-#wrapper.toggled {
-    padding-left: 250px;
-}
-
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: 0px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
+    margin-left: -10px;
     overflow-y: auto;
     background: #000;
     -webkit-transition: all 0.5s ease;
@@ -43,26 +39,11 @@
     transition: all 0.5s ease;
 }
 
-#wrapper.toggled #sidebar-wrapper {
-    width: 250px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    position: fixed;
-    padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
-}
-
 /* Sidebar Styles */
 
 .sidebar-nav {
     position: absolute;
-    top: 0;
+    top: 30px;
     width: 250px;
     margin: 0;
     padding: 0;
@@ -106,7 +87,34 @@
     background: none;
 }
 
+#legislators_basic_table {
+    overflow-x: scroll;
+}
+
+#sidebar-wrapper {
+    overflow: hidden;
+}
+
+.tablecaption{
+    border: inherit; 
+}
+
 @media(min-width:768px) {
+    #wrapper.toggled {
+        padding-left: 250px;
+    }
+
+    #page-content-wrapper {
+        width: 100%;
+        position: fixed;
+        padding: 15px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: absolute;
+        margin-right: -250px;
+    }
+
     #wrapper {
         padding-left: 180px;
     }
@@ -134,8 +142,45 @@
     }
 }
 
-/*@media(max-width: 767px) {
-    #sidebar-wrapper {
-        width: 100px;
+@media(max-width: 767px) {
+    #wrapper.toggled {
+        padding-left: 50px;
     }
-}*/
+
+    #page-content-wrapper {
+        width: 100%;
+        position: fixed;
+        padding: 15px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: absolute;
+        margin-right: -250px;
+    }
+
+    #wrapper {
+        padding-left: 30px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 50px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}

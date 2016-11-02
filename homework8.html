@@ -22,7 +22,7 @@
 				</button>
 			</div>
 			<div class="col-xs-6 col-md-6 col-lg-6 col-xs-offset-2">
-					<a href="http://sunlightfoundation.com/" target="_blank"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/logo.png" alt="logo" width=60>Congress API</a>
+					<a href="http://sunlightfoundation.com/" target="_blank"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/logo.png" alt="logo" width=70>Congress API</a>
 	    </div>
       <div class="clearfix visible-md-block"></div>
 		</div>
@@ -30,28 +30,30 @@
   <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="active">
-          <div ng-controller="legislatorsGetController">
-            <a data-toggle="tab" href="#legislators_view" id="legislators"><span class="glyphicon glyphicon-user"></span> <span class="hidden-sm hidden-xs">Legislators</span></a>
-          </div>
-        </li>
-        <li>
-          <div ng-controller="billsGetController">
-          <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> <span class="hidden-sm hidden-xs">Bills</span></a>
-          </div>
-        </li>
-        <li>
-            <div ng-controller="committeesGetController">
-            <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> <span class="hidden-xs hidden-sm">Committees</span></a>
+      <div>
+        <ul class="sidebar-nav">
+          <li class="active">
+            <div class="row" ng-controller="legislatorsGetController">
+              <a data-toggle="tab" href="#legislators_view" id="legislators"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">Legislators</span></a>
             </div>
-        </li>
-        <li>
-            <div ng-controller="favoritesGetController">
-            <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> <span class="hidden-xs hidden-sm">Favorites</span></a>
+          </li>
+          <li>
+            <div class="row" ng-controller="billsGetController">
+            <a data-toggle="tab" href="#bills_view" id="bills"><span class="glyphicon glyphicon-file"></span> <span class="hidden-xs">Bills</span></a>
             </div>
-        </li>
-      </ul>
+          </li>
+          <li>
+              <div class="row" ng-controller="committeesGetController">
+              <a data-toggle="tab" href="#committees_view" id="committees"><span class="glyphicon glyphicon-log-in"></span> <span class="hidden-xs">Committees</span></a>
+              </div>
+          </li>
+          <li>
+              <div class="row" ng-controller="favoritesGetController">
+              <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star"></span> <span class="hidden-xs">Favorites</span></a>
+              </div>
+          </li>
+        </ul>
+      </div>
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
@@ -62,7 +64,7 @@
           <div id='legislators_view' class="tab-pane fade in active"  ng-controller="legislatorsViewController">
             <div class="row">
               <div class="col-md-12 col-lg-12">
-                <h1>Legislators</h1>
+                <h2>Legislators</h2>
                 <hr />
                 <div class="carousel slide" id="legislator_carousel" data-interval="false">
                   <div class="carousel-inner">
@@ -75,10 +77,14 @@
                       </ul>
                       <div class="tab-content">
                         <div id="byState" class="tab-pane fade in active">
-                          <div class="container-fluid">
-                            <div class="row input-group">
-                              <div class="col-md-8">Legislators By State</div>
-                              <div class="col-md-4">
+                          <hr>
+                          <div class="panel panel-default">
+                            <div class="panel-body" id="legislators_basic_table">
+                              <table class="table table-hover">
+                              <tr>
+                              <div class="tablecaption row">
+                                <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators By State</div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 h5">
                                 <select class="selectpicker" ng-model="search.state_name" id="search">
                                   <option value=''>All States</option>
                                   <option>Alabama</option>
@@ -131,14 +137,9 @@
                                   <option>West Virginia</option>
                                   <option>Wisconsin</option>
                                   <option>Wyoming</option>
-                                </select>
+                                </select></div>
                               </div>
-                            </div>
-                          </div>
-                          <br>
-                          <div class="panel panel-default">
-                            <div class="panel-body">
-                              <table class="table table-hover" id="legislators_basic">
+                              </tr>
                               <thead>
                                 <tr>
                                   <th>Party</th>
@@ -150,7 +151,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr dir-paginate="legislator in legislators | filter: search : true| itemsPerPage: pageSize" current-page="currentPage">
+                                <tr dir-paginate="legislator in legislators | filter: search : bool(search.state)| itemsPerPage: pageSize" current-page="currentPage">
                                   <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                   <td>{{ legislator.first_name + " " + legislator.last_name}} </td>
                                   <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
@@ -180,14 +181,13 @@
                       <div class="container-fluid">
                         <div class="row">
                           <div class="col-md-12">
-                          <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
+                          <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>Details</a>
                           </div>
                         </div>
-                        <hr />
 
                         <div class="row">
                           <!-- personal info -->
-                          <div class="col-lg-6 col-md-8 col-sm-12">
+                          <div class="col-lg-6 col-md-10 col-sm-12">
                             <table class="table table-hover">
                               <td><img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
                               </td>
@@ -253,7 +253,7 @@
                               <tbody>
                                 <tr ng-repeat="bill in bills">
                                   <td>{{bill.bill_id}}</td>
-                                  <td>{{bill.short_title}}</td>
+                                  <td>{{bill.official_title}}</td>
                                   <td>{{bill.chamber}}</td>
                                   <td>{{bill.bill_type}}</td>
                                   <td>{{bill.congress}}</td>
@@ -278,7 +278,7 @@
           <div id="bills_view" class="tab-pane fade">
             <div class="row">
               <div class="col-md-12 col-lg-12">
-                  <h1>bills pending</h1>
+                  <h2>bills pending</h2>
               </div>
             </div>
           </div>
@@ -287,7 +287,7 @@
           <div id="committees_view" class="tab-pane fade">
             <div class="row">
               <div class="col-md-12 col-lg-12">
-                  <h1>committees pending</h1>
+                  <h2>committees pending</h2>
               </div>
             </div>
           </div>
@@ -296,7 +296,7 @@
           <div id="favorites_view" class="tab-pane fade">
             <div class="row">
               <div class="col-md-12 col-lg-12">
-                  <h1>favorites pending</h1>
+                  <h2>favorites pending</h2>
               </div>
             </div>
           </div>
