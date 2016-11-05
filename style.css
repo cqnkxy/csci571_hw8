@@ -87,7 +87,10 @@
     background: none;
 }
 
-#legislators_basic_table {
+#legislators_basic_table, #legislators_house_table,
+#legislators_senate_table, #new_bills_basic_table, 
+#active_bills_basic_table, #committee_house_basic_table,
+#committee_senate_basic_table, #committee_joint_basic_table{
     overflow-x: scroll;
 }
 
@@ -100,19 +103,10 @@
 }
 
 @media(min-width:768px) {
-    #wrapper.toggled {
-        padding-left: 250px;
-    }
-
     #page-content-wrapper {
         width: 100%;
         position: fixed;
         padding: 15px;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: absolute;
-        margin-right: -250px;
     }
 
     #wrapper {
@@ -143,19 +137,10 @@
 }
 
 @media(max-width: 767px) {
-    #wrapper.toggled {
-        padding-left: 50px;
-    }
-
     #page-content-wrapper {
         width: 100%;
         position: fixed;
         padding: 15px;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: absolute;
-        margin-right: -250px;
     }
 
     #wrapper {
