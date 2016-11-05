@@ -152,7 +152,7 @@
                                   <th></th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody ng-cloak>
                                 <tr dir-paginate="legislator in legislators | filter: search : bool(search.state)| itemsPerPage: 10" pagination-id="pagination_state">
                                   <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                   <td>{{ legislator.last_name + " " + legislator.first_name}} </td>
@@ -191,7 +191,7 @@
                                     <th></th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-cloak>
                                   <tr dir-paginate="legislator in houses | filter: house | itemsPerPage: 10" current-page="currentPage" pagination-id="pagination_house">
                                     <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                     <td>{{ legislator.last_name + " " + legislator.first_name}} </td>
@@ -230,7 +230,7 @@
                                     <th></th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-cloak>
                                   <tr dir-paginate="legislator in senates | filter: senate | itemsPerPage: 10" pagination-id="pagination_senate">
                                     <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                     <td>{{ legislator.last_name + " " + legislator.first_name}} </td>
@@ -263,7 +263,7 @@
 
                         <div class="row">
                           <!-- personal info -->
-                          <div class="col-lg-6 col-md-7 col-sm-12">
+                          <div class="col-lg-6 col-md-7 col-sm-12" ng-cloak>
                             <table class="table table-striped" >
                               <td><img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
                               </td>
@@ -305,7 +305,7 @@
                                   <th>Name</th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody ng-cloak>
                                 <tr ng-repeat="committee in committees">
                                   <td>{{committee.chamber}}</td>
                                   <td>{{committee.committee_id}}</td>
@@ -326,7 +326,7 @@
                                   <th>Link</th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody ng-cloak>
                                 <tr ng-repeat="bill in bills">
                                   <td>{{bill.bill_id}}</td>
                                   <td>{{bill.official_title}}</td>
@@ -390,7 +390,7 @@
                                   <th></th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody ng-cloak>
                                 <tr dir-paginate="bill in active_bills | filter: active_bill | itemsPerPage: 10" pagination-id="pagination_active_bill">
                                   <td>{{ bill.bill_id }} </td>
                                   <td>{{ bill.bill_type }}</td>
@@ -431,7 +431,7 @@
                                   <th></th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody ng-cloak>
                                 <tr dir-paginate="bill in new_bills | filter: new_bill | itemsPerPage: 10" pagination-id="pagination_new_bill">
                                   <td>{{ bill.bill_id }} </td>
                                   <td>{{ bill.bill_type }}</td>
@@ -463,7 +463,7 @@
                         <!-- detail table -->
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                           <table class="table table-hover">
-                            <tbody>
+                            <tbody ng-cloak>
                               <tr>
                                 <td><strong>Bill ID</strong></td>
                                 <td>{{ specific_bill.bill_id }}</td>
@@ -560,7 +560,7 @@
                               <th>Parent Committee</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody ng-cloak>
                             <tr dir-paginate="c in houses | filter: committee_house | itemsPerPage: 10" pagination-id="pagination_committee_house">
                               <td><span class="glyphicon glyphicon-star-empty"></span></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> {{ c.chamber.name }}</td>
@@ -599,7 +599,7 @@
                               <th>Office</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody ng-cloak>
                             <tr dir-paginate="c in senates | filter: committee_senate | itemsPerPage: 10" pagination-id="pagination_committee_senate">
                               <td><span class="glyphicon glyphicon-star-empty"></span></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> {{ c.chamber.name }}</td>
@@ -637,7 +637,7 @@
                               <th>Name</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody ng-cloak>
                             <tr dir-paginate="c in joints | filter: committee_joint | itemsPerPage: 10" pagination-id="pagination_committee_joint">
                               <td><span class="glyphicon glyphicon-star-empty"></span></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> Joint</td>

@@ -4,7 +4,7 @@ var myApp = angular.module('myApp',
 );
 
 function localStorageGet(key) {
-    if (!localStorage[key]) {
+    if (!(key in localStorage)) {
         return [];
     } else {
         return JSON.parse(localStorage[key]);
@@ -12,14 +12,17 @@ function localStorageGet(key) {
 }
 
 function localStoragePush(key, val) {
-    var vec = localStorage[key];
-    if (!vec) {
+    var vec;
+    console.log()
+    if (!(key in localStorage)) {
+        console.log("here");
         vec = [];
     } else {
-        vec = JSON.parse[vec];
+        console.log("there" + " " + localStorage[key]);
+        vec = JSON.parse(localStorage[key]);
     }
     vec.push(val);
-    localStorage[key] = JSON.stringify[vec];
+    localStorage[key] = JSON.stringify(vec);
 }
 
 /************** lagislators ****************/
