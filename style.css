@@ -162,6 +162,10 @@
 }
 
 @media(max-width: 767px) {
+    .bio_img{
+        text-align: center;
+    }
+
     #page-content-wrapper {
         width: 100%;
         position: fixed;

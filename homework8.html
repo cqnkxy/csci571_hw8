@@ -264,19 +264,21 @@
                         <div class="row">
                           <!-- personal info -->
                           <div class="col-lg-6 col-md-7 col-sm-12" ng-cloak>
-                            <table class="table table-hover" >
                               <div class="row">
-                              <td><img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
-                              </td>
-                              <td>
-                                <table class="table table-hover" >
-                                  <tr><td>{{specific_legislator.title + ". " + specific_legislator.last_name + ", " + specific_legislator.first_name }}</td></tr>
-                                  <tr><td><a href="mailto:{{ specific_legislator.oc_email }}">{{ specific_legislator.oc_email }}</a></td></tr>
-                                  <tr><td>Chamber: {{ specific_legislator.chamber.name}}</td></tr>
-                                  <tr><td>Contact: <a href="tel:{{ specific_legislator.phone }}">{{ specific_legislator.phone }}</a></td></tr>
-                                  <tr><td><img src="{{specific_legislator.party.src}}" alt="party_img" width="25">{{specific_legislator.party.name }}</td></tr>
-                                </table>
-                              </td>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 bio_img">
+                                  <img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                  <table class="table table-hover" >
+                                    <tr><td>{{specific_legislator.title + ". " + specific_legislator.last_name + ", " + specific_legislator.first_name }}</td></tr>
+                                    <tr><td><a href="mailto:{{ specific_legislator.oc_email }}">{{ specific_legislator.oc_email }}</a></td></tr>
+                                    <tr><td>Chamber: {{ specific_legislator.chamber.name}}</td></tr>
+                                    <tr><td>Contact: <a href="tel:{{ specific_legislator.phone }}">{{ specific_legislator.phone }}</a></td></tr>
+                                    <tr><td><img src="{{specific_legislator.party.src}}" alt="party_img" width="25">{{specific_legislator.party.name }}</td></tr>
+                                  </table>
+                                </div>
+                              </div>
+                            <table class="table table-hover" >
                               <tr><td>Start Term</td><td>{{ specific_legislator.term_start}}</td></tr>
                               <tr><td>End Term</td><td>{{specific_legislator.term_end}}</td></tr>
                               <tr><td>Term</td><td><uib-progressbar animate="false" value="progress" type="success"><b>{{progress}}%</b></uib-progressbar></td></tr>
@@ -303,14 +305,14 @@
                                 <tr>
                                   <th>Chamber</th>
                                   <th>Committee ID</th>
-                                  <th>Name</th>
+                                  <th class="hidden-xs">Name</th>
                                 </tr>
                               </thead>
                               <tbody ng-cloak>
                                 <tr ng-repeat="committee in committees">
                                   <td>{{committee.chamber}}</td>
                                   <td>{{committee.committee_id}}</td>
-                                  <td>{{committee.name}}</td>
+                                  <td class="hidden-xs">{{committee.name}}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -320,20 +322,20 @@
                               <thead>
                                 <tr>
                                   <th>Bill ID</th>
-                                  <th>Title</th>
-                                  <th>Chamber</th>
-                                  <th>Bill Type</th>
-                                  <th>Congress</th>
+                                  <th class="hidden-xs">Title</th>
+                                  <th class="hidden-xs">Chamber</th>
+                                  <th class="hidden-xs">Bill Type</th>
+                                  <th class="hidden-xs">Congress</th>
                                   <th>Link</th>
                                 </tr>
                               </thead>
                               <tbody ng-cloak>
                                 <tr ng-repeat="bill in bills">
                                   <td>{{bill.bill_id}}</td>
-                                  <td>{{bill.official_title}}</td>
-                                  <td>{{bill.chamber}}</td>
-                                  <td>{{bill.bill_type}}</td>
-                                  <td>{{bill.congress}}</td>
+                                  <td class="hidden-xs">{{bill.official_title}}</td>
+                                  <td class="hidden-xs">{{bill.chamber}}</td>
+                                  <td class="hidden-xs">{{bill.bill_type}}</td>
+                                  <td class="hidden-xs">{{bill.congress}}</td>
                                   <td><a href="{{bill.last_version.urls.pdf}}" target="_blank">Link</a></td>
                                 </tr>
                               </tbody>
