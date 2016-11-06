@@ -16,7 +16,7 @@
 <body>
 	<div class="container-fluid navbar navbar-fixed-top" id="logo">
 		<div class="row">
-	    <div class="col-xs-3 col-md-3 col-lg-3">	
+	    <div class="col-xs-2 col-md-3 col-lg-3">	
 				<button type="button" id="menu-toggle" class="btn btn-link">
 					<span class="glyphicon glyphicon-menu-hamburger"></span>
 				</button>
@@ -79,14 +79,13 @@
                       <div class="tab-content">
                         <!-- legislators by state -->
                         <div id="byState" class="tab-pane fade in active">
-                          <hr>
                           <div class="panel panel-default">
-                            <div class="panel-body" id="legislators_basic_table">
-                              <table class="table table-hover">
-                              <tr>
-                              <div class="tablecaption row">
-                                <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators By State</div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                            <div class="panel-heading">
+                              <div class="row">
+                              <div class="col-lg-9 col-xs-6">
+                                Legislators By State
+                              </div>
+                              <div class="col-lg-3 col-xs-6">
                                 <select class="selectpicker" ng-model="search.state_name">
                                   <option value=''>All States</option>
                                   <option>Alabama</option>
@@ -139,9 +138,12 @@
                                   <option>West Virginia</option>
                                   <option>Wisconsin</option>
                                   <option>Wyoming</option>
-                                </select></div>
+                                </select>
                               </div>
-                              </tr>
+                              </div>
+                            </div>
+                            <div class="panel-body" id="legislators_basic_table">
+                              <table class="table table-hover">
                               <thead>
                                 <tr>
                                   <th>Party</th>
@@ -170,17 +172,19 @@
                         <!-- # legislators by state -->
                         <!-- legislators by house -->
                         <div id="House" class="tab-pane fade">
-                          <hr>
                           <div class="panel panel-default">
-                            <div class="panel-body" id="legislators_house_table">
-                                <table class="table table-hover">
-                                <tr>
-                                <div class="tablecaption row">
-                                  <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators By House</div>
-                                  <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                            <div class="panel-heading">
+                              <div class="row">
+                                <div class="col-lg-9 col-xs-6">
+                                  Legislators By House
+                                </div>
+                                <div class="col-lg-3 col-xs-6">
                                   <input placeholder="Search" ng-model="house">
                                 </div>
-                                </tr>
+                              </div>
+                            </div>
+                            <div class="panel-body" id="legislators_house_table">
+                                <table class="table table-hover">
                                 <thead>
                                   <tr>
                                     <th>Party</th>
@@ -209,17 +213,19 @@
                         <!-- # legislators by house -->
                         <!-- legislators by senate -->
                         <div id="Senate" class="tab-pane fade">
-                          <hr>
                           <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <div class="row">
+                                <div class="col-lg-9 col-xs-6">
+                                  Legislators By Senate
+                                </div>
+                                <div class="col-lg-3 col-xs-6">
+                                  <input placeholder="Search" ng-model="senate">
+                                </div>
+                              </div>
+                            </div>
                             <div class="panel-body" id="legislators_senate_table">
                                 <table class="table table-hover">
-                                  <tr>
-                                  <div class="tablecaption row">
-                                    <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators By Senate</div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6 h5">
-                                    <input placeholder="Search" ng-model="senate">
-                                  </div>
-                                  </tr>
                                 <thead>
                                   <tr>
                                     <th>Party</th>
@@ -371,17 +377,19 @@
                       <div class="tab-content">
                         <!-- active bills -->
                         <div id="active_bills" class="tab-pane fade in active">
-                          <hr>
                           <div class="panel panel-default">
-                            <div class="panel-body" id="active_bills_basic_table">
-                              <table class="table table-hover">
-                              <tr>
-                              <div class="tablecaption row">
-                                <div class="col-md-9 col-sm-8 col-xs-6 h5">Active Bills</div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                            <div class="panel-heading">
+                              <div class="row">
+                              <div class="col-lg-9 col-xs-6">
+                                Active Bills
+                              </div>
+                              <div class="col-lg-3 col-xs-6">
                                 <input placeholder="Search" ng-model="active_bill">
                               </div>
-                              </tr>
+                              </div>
+                            </div>
+                            <div class="panel-body" id="active_bills_basic_table">
+                              <table class="table table-hover">
                               <thead>
                                 <tr>
                                   <th>Bill ID</th>
@@ -412,17 +420,19 @@
                         <!-- # active bills -->
                         <!-- new bills -->
                         <div id="new_bills" class="tab-pane fade">
-                          <hr>
                           <div class="panel panel-default">
-                            <div class="panel-body" id="new_bills_basic_table">
-                              <table class="table table-hover" id="active_bills_table">
-                              <tr>
-                              <div class="tablecaption row">
-                                <div class="col-md-9 col-sm-8 col-xs-6 h5">New Bills</div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                            <div class="panel-heading">
+                              <div class="row">
+                              <div class="col-lg-9 col-xs-6">
+                                New Bills
+                              </div>
+                              <div class="col-lg-3 col-xs-6">
                                 <input placeholder="Search" ng-model="new_bill">
                               </div>
-                              </tr>
+                              </div>
+                            </div>
+                            <div class="panel-body" id="new_bills_basic_table">
+                              <table class="table table-hover" id="active_bills_table">
                               <thead>
                                 <tr>
                                   <th>Bill ID</th>
@@ -546,17 +556,19 @@
                   <div class="tab-content">
                     <!-- house -->
                     <div id="committee_house" class="tab-pane fade in active">
-                      <hr>
                       <div class="panel panel-default">
-                        <div class="panel-body" id="committee_house_basic_table">
-                          <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">House</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                        <div class="panel-heading">
+                          <div class="row">
+                          <div class="col-lg-9 col-xs-6">
+                            House
+                          </div>
+                          <div class="col-lg-3 col-xs-6">
                             <input placeholder="Search" ng-model="committee_house">
                           </div>
-                          </tr>
+                          </div>
+                        </div>
+                        <div class="panel-body" id="committee_house_basic_table">
+                          <table class="table table-hover">
                           <thead>
                             <tr>
                               <th></th>
@@ -583,17 +595,19 @@
                     <!-- # house -->
                     <!-- senate -->
                     <div id="committee_senate" class="tab-pane fade">
-                      <hr>
                       <div class="panel panel-default">
-                        <div class="panel-body" id="committee_senate_basic_table">
-                          <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">House</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
+                        <div class="panel-heading">
+                          <div class="row">
+                          <div class="col-lg-9 col-xs-6">
+                            Senate
+                          </div>
+                          <div class="col-lg-3 col-xs-6">
                             <input placeholder="Search" ng-model="committee_senate">
                           </div>
-                          </tr>
+                          </div>
+                        </div>
+                        <div class="panel-body" id="committee_senate_basic_table">
+                          <table class="table table-hover">
                           <thead>
                             <tr>
                               <th></th>
@@ -624,17 +638,19 @@
                     <!-- # senate -->
                     <!-- joint -->
                     <div id="committee_joint" class="tab-pane fade">
-                      <hr>
                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                            <div class="col-lg-9 col-xs-6">
+                              Joint
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                              <input placeholder="Search" ng-model="committee_joint">
+                            </div>
+                            </div>
+                        </div>
                         <div class="panel-body" id="committee_joint_basic_table">
                           <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">House</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
-                            <input placeholder="Search" ng-model="committee_joint">
-                          </div>
-                          </tr>
                           <thead>
                             <tr>
                               <th></th>
@@ -682,16 +698,12 @@
                   <div class="tab-content">
                     <!-- legislators -->
                     <div id="favorite_legislator" class="tab-pane fade in active">
-                      <hr>
                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                          Favorite Legislators
+                        </div>
                         <div class="panel-body" id="favorite_legislator_basic_table">
                           <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Legislators</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
-                          </div>
-                          </tr>
                           <thead>
                             <tr>
                               <th></th>
@@ -729,16 +741,12 @@
                     <!-- # legislators -->
                     <!-- bills -->
                     <div id="favorite_bill" class="tab-pane fade">
-                      <hr>
                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                          Favorite Bills
+                        </div>
                         <div class="panel-body" id="favorite_bill_basic_table">
                           <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Bills</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
-                          </div>
-                          </tr>
                           <thead>
                             <tr>
                               <th></th>
@@ -773,16 +781,12 @@
                     <!-- # bills -->
                     <!-- committee -->
                     <div id="favorite_committee" class="tab-pane fade">
-                      <hr>
                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                          Favorite Committees
+                        </div>
                         <div class="panel-body" id="favorite_committee_basic_table">
                           <table class="table table-hover">
-                          <tr>
-                          <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Committees</div>
-                            <div class="col-md-3 col-sm-4 col-xs-6 h5">
-                          </div>
-                          </tr>
                           <thead>
                             <tr>
                               <th></th>

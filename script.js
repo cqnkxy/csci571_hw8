@@ -354,6 +354,9 @@ myApp.service("favoritesService", function(){
         return fav_legislators;
     };
     favoritesService.setLegislators = function(l) {
+        for (var k in fav_legislators) {
+            delete fav_legislators[k];
+        }
         for (var k in l) {
             fav_legislators[k] = l[k];
         }
@@ -362,6 +365,9 @@ myApp.service("favoritesService", function(){
         return fav_committees;
     };
     favoritesService.setCommittees = function(c) {
+        for (var k in fav_committees) {
+            delete fav_committees[k];
+        }
         for (var k in c) {
             fav_committees[k] = c[k];
         }
@@ -370,6 +376,9 @@ myApp.service("favoritesService", function(){
         return fav_bills;
     };
     favoritesService.setBills = function(b) {
+        for (var k in fav_bills) {
+            delete fav_bills[k];
+        }
         for (var k in b) {
             fav_bills[k] = b[k];
         }
