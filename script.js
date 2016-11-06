@@ -223,6 +223,7 @@ function billsGetController($scope, $http, billsService) {
 function billsViewController($scope, billsService) {
     $scope.active_bills = billsService.getActiveBills();
     $scope.new_bills = billsService.getNewBills();
+    $scope.specific_bill = {};
     $scope.details = function(bill) {
         // console.log(bill);
         $scope.specific_bill = bill;
@@ -238,7 +239,6 @@ function billsViewController($scope, billsService) {
         $scope.details(b);
     });
     $scope.is_favorite = function(b) {
-        console.log(b);
         if (b.bill_id in localStorageGet('bill')) {
             return "yellow_star";
         } else {
