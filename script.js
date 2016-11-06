@@ -142,7 +142,21 @@ function legislatorsViewController($scope, $http, legislatorsService) {
         });
     };
     $scope.favorite = function(l) {
-        localStorageAdd("legislator", l.bioguide_id, l);
+        if (l.bioguide_id in localStorageGet('legislator')) {
+            localStorageDelete("legislator", l.bioguide_id);
+        } else {
+            localStorageAdd("legislator", l.bioguide_id, l);
+        }
+    };
+    $scope.$on("fav_le_details", function(e, l) {
+        $scope.details(l);
+    });
+    $scope.is_favorite = function(l) {
+        if (l.bioguide_id in localStorageGet('legislator')) {
+            return "yellow_star";
+        } else {
+            return "white_star";
+        }
     };
 }
 
@@ -212,10 +226,25 @@ function billsViewController($scope, billsService) {
     $scope.details = function(bill) {
         // console.log(bill);
         $scope.specific_bill = bill;
-    }
+    };
     $scope.favorite = function(bill) {
-        localStorageAdd("bill", bill.bill_id, bill);
-    }
+        if (bill.bill_id in localStorageGet('bill')){
+            localStorageDelete("bill", bill.bill_id);
+        } else {
+            localStorageAdd("bill", bill.bill_id, bill);
+        }
+    };
+    $scope.$on("fav_bi_details", function(e, b) {
+        $scope.details(b);
+    });
+    $scope.is_favorite = function(b) {
+        console.log(b);
+        if (b.bill_id in localStorageGet('bill')) {
+            return "yellow_star";
+        } else {
+            return "white_star";
+        }
+    };
 }
 
 /****************** #bills *****************/
@@ -287,7 +316,6 @@ function committeesGetController($scope, $http, committeesService) {
                 sort_id(c_houses);
                 sort_id(c_senates);
                 sort_id(c_joints);
-                console.log(c_joints);
             });
         }
     };
@@ -299,7 +327,18 @@ function committeesViewController($scope, committeesService) {
     $scope.senates = committeesService.getSenates();
     $scope.joints = committeesService.getJoints();
     $scope.favorite = function(c) {
-        localStorageAdd("committee", c.committee_id, c);
+        if (c.committee_id in localStorageGet("committee")) {
+            localStorageDelete("committee", c.committee_id);
+        } else{
+            localStorageAdd("committee", c.committee_id, c);
+        }
+    };
+    $scope.is_favorite = function(c) {
+        if (c.committee_id in localStorageGet('committee')) {
+            return "yellow_star";
+        } else {
+            return "white_star";
+        }
     };
 }
 
@@ -316,7 +355,6 @@ myApp.service("favoritesService", function(){
     };
     favoritesService.setLegislators = function(l) {
         for (var k in l) {
-            console.log(k, l[k]);
             fav_legislators[k] = l[k];
         }
     };
@@ -325,7 +363,7 @@ myApp.service("favoritesService", function(){
     };
     favoritesService.setCommittees = function(c) {
         for (var k in c) {
-            fav_committees[k] = l[k];
+            fav_committees[k] = c[k];
         }
     };
     favoritesService.getBills = function() {
@@ -347,19 +385,19 @@ function favoritesGetController($scope, favoritesService) {
     };
 }
 
-function favoritesViewController($scope, legislatorsService, billsService, favoritesService) {
+function favoritesViewController($rootScope, $scope, legislatorsService, billsService, favoritesService) {
     $scope.favorite_legislators = favoritesService.getLegislators();
     $scope.favorite_bills = favoritesService.getBills();
     $scope.favorite_committees = favoritesService.getCommittees();
     $scope.favorite_legislator_detail_click = function(l) {
-        angular.element("#legislators").trigger('click');
+        $rootScope.$broadcast('fav_le_details', l);
     };
     $scope.delete_legislator = function(l) {
         localStorageDelete("legislator", l.bioguide_id);
         delete $scope.favorite_legislators[l.bioguide_id];
     };
     $scope.favorite_bill_detail_click = function(b) {
-        angular.element("#bllls").triggerHandler('click');
+        $rootScope.$broadcast('fav_bi_details', b);
     };
     $scope.delete_bill = function(b) {
         localStorageDelete("bill", b.bill_id);

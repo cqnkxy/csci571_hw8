@@ -2,11 +2,11 @@
 <html ng-app="myApp">
 <head>
   <link data-require="bootstrap-css@3.3.7" data-semver="3.3.7" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script data-require="jquery@*" data-semver="2.1.1" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>
-  <script data-require="jquery@*" data-semver="2.1.1" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   <script src="dirPagination.js"></script>
@@ -31,7 +31,7 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <div>
-        <ul class="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebartabs">
           <li class="active">
             <div class="row" ng-controller="legislatorsGetController">
               <a data-toggle="tab" href="#legislators_view" id="legislators"><span class="glyphicon glyphicon-user"></span> <span class="hidden-xs">Legislators</span></a>
@@ -253,18 +253,19 @@
                     <div class="item">
                       <div class="container-fluid" id="legislators_detail_view">
                         <div class="row">
-                          <div class="col-md-10">
+                          <div class="col-md-10 col-xs-9">
                           <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
                           </div>
-                          <div class="col-md-2">
-                          <div class="btn btn-default-sm" ng-click="favorite(specific_legislator)"><span class="glyphicon glyphicon-star-empty"></span></div>
+                          <div class="col-md-2 col-xs-1">
+                          <div class="btn btn-default-xs" ng-click="favorite(specific_legislator)"><span class="glyphicon glyphicon-star" ng-class="is_favorite(specific_legislator)"></span></div>
                           </div>
                         </div>
 
                         <div class="row">
                           <!-- personal info -->
                           <div class="col-lg-6 col-md-7 col-sm-12" ng-cloak>
-                            <table class="table table-striped" >
+                            <table class="table table-hover" >
+                              <div class="row">
                               <td><img src="https://theunitedstates.io/images/congress/original/{{specific_legislator.bioguide_id}}.jpg" alt="bio_img" width="180">
                               </td>
                               <td>
@@ -455,11 +456,11 @@
                     <div class="item">
                       <div class="container-fluid">
                         <div class="row">
-                          <div class="col-md-10">
+                          <div class="col-md-10 col-xs-9">
                           <a class="left btn btn-default btn-sm" href="#bill_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
                           </div>
-                          <div class="col-md-2">
-                            <div class="btn btn-default-sm" ng-click="favorite(specific_bill)"><span class="glyphicon glyphicon-star-empty"></span></div>
+                          <div class="col-md-2 col-xs-1">
+                            <div class="btn btn-default-xs" ng-click="favorite(specific_bill)"><span class="glyphicon glyphicon-star" ng-class="is_favorite(specific_bill)"></span></div>
                           </div>
                         </div>
 
@@ -565,7 +566,7 @@
                           </thead>
                           <tbody ng-cloak>
                             <tr dir-paginate="c in houses | filter: committee_house | itemsPerPage: 10" pagination-id="pagination_committee_house">
-                              <td><span class="glyphicon glyphicon-star-empty"></span></td>
+                              <td><div class="btn btn-default-xs" ng-click="favorite(c)"><span class="glyphicon glyphicon-star" ng-class="is_favorite(c)"></span></div></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> {{ c.chamber.name }}</td>
                               <td>{{ c.committee_id }}</td>
                               <td>{{ c.name }}</td>
@@ -604,7 +605,7 @@
                           </thead>
                           <tbody ng-cloak>
                             <tr dir-paginate="c in senates | filter: committee_senate | itemsPerPage: 10" pagination-id="pagination_committee_senate">
-                              <td><span class="glyphicon glyphicon-star-empty"></span></td>
+                              <td><div class="btn btn-default-xs" ng-click="favorite(c)"><span class="glyphicon glyphicon-star" ng-class="is_favorite(c)"></span></div></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> {{ c.chamber.name }}</td>
                               <td>{{ c.committee_id }}</td>
                               <td>{{ c.name }}</td>
@@ -642,7 +643,7 @@
                           </thead>
                           <tbody ng-cloak>
                             <tr dir-paginate="c in joints | filter: committee_joint | itemsPerPage: 10" pagination-id="pagination_committee_joint">
-                              <td><span class="glyphicon glyphicon-star-empty"></span></td>
+                              <td><div class="btn btn-default-xs" ng-click="favorite(c)"><span class="glyphicon glyphicon-star" ng-class="is_favorite(c)"></span></div></td>
                               <td><img src="{{ c.chamber.src }}" alt="chamber" width="25"> Joint</td>
                               <td>{{ c.committee_id }}</td>
                               <td>{{ c.name }}</td>
@@ -685,7 +686,7 @@
                           <table class="table table-hover">
                           <tr>
                           <div class="tablecaption row">
-                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators</div>
+                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Legislators</div>
                           </tr>
                           <thead>
                             <tr>
@@ -701,7 +702,7 @@
                           </thead>
                           <tbody ng-cloak>
                             <tr ng-repeat="(id, l) in favorite_legislators">
-                              <td><div class="btn btn-default-sm" ng-click="delete_legislator(l)"><span class="glyphicon glyphicon-trash"></span></div>
+                              <td><div class="btn btn-default-xs" ng-click="delete_legislator(l)"><span class="glyphicon glyphicon-trash"></span></div>
                               </td>
                               <td><img alt="bio_img" width="25" src="https://theunitedstates.io/images/congress/original/{{l.bioguide_id}}.jpg">
                               </td>
@@ -712,7 +713,9 @@
                               <td><img src="{{ l.chamber.src }}" alt="chamber" width="25">{{ l.chamber.name }}</td>
                               <td>{{ l.state_name }}</td>
                               <td><a href="mailto:{{ l.oc_email }}">{{ l.oc_email }}</a></td>
-                              <td><a class="right btn btn-primary" href="#favorite_carousel" role="button" ng-click="favorite_legislator_detail_click(l)">View Details</a></td>
+                              <td>
+                              <a class="right btn btn-primary" href="#legislator_carousel" role="button" data-slide-to="1" onclick="redirect_le()" ng-click="favorite_legislator_detail_click(l)">View Details</a>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -721,13 +724,83 @@
                     </div>
                     <!-- # legislators -->
                     <!-- Bills -->
-      
+                    <div id="favorite_bill" class="tab-pane fade">
+                      <hr>
+                      <div class="panel panel-default">
+                        <div class="panel-body" id="favorite_bill_basic_table">
+                          <table class="table table-hover">
+                          <tr>
+                          <div class="tablecaption row">
+                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Bills</div>
+                          </tr>
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Bill ID</th>
+                              <th>Bill Type</th>
+                              <th>Title</th>
+                              <th>Chamber</th>
+                              <th>Introduced On</th>
+                              <th>Sponsor</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody ng-cloak>
+                            <tr ng-repeat="(id, b) in favorite_bills">
+                              <td><div class="btn btn-default-xs" ng-click="delete_bill(b)"><span class="glyphicon glyphicon-trash"></span></div>
+                              </td>
+                              <td>{{ b.bill_id }}</td>
+                              <td>{{ b.bill_type }}</td>
+                              <td>{{ b.official_title }}</td>
+                              <td><img src="{{ b.chamber.src }}" alt="chamber" width="25">{{ b.chamber.name }}</td>
+                              <td>{{ b.introduced_on }}</td>
+                              <td>{{ b.sponsor.title + "." + b.last_name + "," + b.first_name }}</td>
+                              <td>
+                              <a class="right btn btn-primary" href="#bill_carousel" role="button" data-slide-to="1" onclick="redirect_bi()" ng-click="favorite_bill_detail_click(b)">View Details</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
                     <!-- # Bills -->
                     <!-- committees -->
-                    
+                    <div id="favorite_committee" class="tab-pane fade">
+                      <hr>
+                      <div class="panel panel-default">
+                        <div class="panel-body" id="favorite_committee_basic_table">
+                          <table class="table table-hover">
+                          <tr>
+                          <div class="tablecaption row">
+                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Favorite Committees</div>
+                          </tr>
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Chamber</th>
+                              <th>Committee ID</th>
+                              <th>Name</th>
+                              <th>Parent Committee</th>
+                              <th>Sub Committee</th>
+                            </tr>
+                          </thead>
+                          <tbody ng-cloak>
+                            <tr ng-repeat="(id, c) in favorite_committees">
+                              <td><div class="btn btn-default-xs" ng-click="delete_committee(c)"><span class="glyphicon glyphicon-trash"></span></div>
+                              </td>
+                              <td><img src="{{ c.chamber.src }}" alt="chamber" width="25">{{ c.chamber.name }}</td>
+                              <td>{{ c.committee_id }}</td>
+                              <td>{{ c.name }}</td>
+                              <td>{{ c.parent_committee_id }}</td>
+                              <td>{{ c.subcommittee }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
                     <!-- # committees -->
-                    <!--  detail -->
-                    <!-- # detail -->
                   </div>
                 </div>
                 <!-- # basic -->
@@ -745,6 +818,14 @@
 </html>
 
 <script>
+function redirect_le() {
+  $('#sidebartabs a[href="#legislators_view"]').tab('show');
+}
+
+function redirect_bi() {
+  $('#sidebartabs a[href="#bills_view"]').tab('show');
+}
+
 $("#menu-toggle").click(function(e) {
   e.preventDefault();
   $("#wrapper").toggleClass("toggled");

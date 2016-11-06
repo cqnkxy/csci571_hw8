@@ -102,8 +102,29 @@
     overflow: hidden;
 }
 
+.glyphicon-star {
+    font-size: 25px;
+}
+
+.yellow_star {
+    color: yellow;
+}
+
+.pale_star {
+    color: white;
+}
+
 .tablecaption{
     border: inherit; 
+}
+
+.btn-default-xs{
+    border-color: #DCDCDC;
+}
+
+.container-fluid {
+    background-color: white;
+    overflow-x: scroll;
 }
 
 @media(min-width:768px) {
