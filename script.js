@@ -3,28 +3,33 @@ var myApp = angular.module('myApp',
     'ngAnimate', 'ngSanitize', 'ui.bootstrap']
 );
 
-function localStorageGet(key) {
-    if (!(key in localStorage)) {
-        return [];
+/******** local storage operation *********/
+
+function localStorageGet(category) {
+    if (!(category in localStorage)) {
+        return {};
     } else {
-        return JSON.parse(localStorage[key]);
+        return JSON.parse(localStorage[category]);
     }
 }
 
-function localStoragePush(key, val) {
-    var vec;
-    console.log()
-    if (!(key in localStorage)) {
-        console.log("here");
-        vec = [];
-    } else {
-        console.log("there" + " " + localStorage[key]);
-        vec = JSON.parse(localStorage[key]);
+function localStorageAdd(category, key, val) {
+    var obj = {};
+    if (category in localStorage) {
+        obj = JSON.parse(localStorage[category]);
     }
-    vec.push(val);
-    localStorage[key] = JSON.stringify(vec);
+    obj[key] = val;
+    // console.log("obj", obj);
+    localStorage[category] = JSON.stringify(obj);
 }
 
+function localStorageDelete(category, key) {
+    var obj = localStorageGet(category);
+    delete obj[key];
+    localStorage[category] = JSON.stringify(obj);
+}
+
+/*********** #local storage operation ******/
 /************** lagislators ****************/
 
 myApp.service("legislatorsService", function() {
@@ -37,10 +42,10 @@ myApp.service("legislatorsService", function() {
     };
     legislatorsService.gethouses = function() {
         return houses;
-    }
+    };
     legislatorsService.getsenates = function() {
         return senates;
-    }
+    };
     return legislatorsService;
 });
 
@@ -73,7 +78,6 @@ function parse_legislator(l) {
         }
     }
     l.district = l.district ? "Disctrict " + l.district : "N.A";
-    l.favorite = false;
     return l;
 }
 
@@ -138,8 +142,7 @@ function legislatorsViewController($scope, $http, legislatorsService) {
         });
     };
     $scope.favorite = function(l) {
-        l.favorite = true;
-        localStoragePush("legislator", l);
+        localStorageAdd("legislator", l.bioguide_id, l);
     };
 }
 
@@ -181,7 +184,6 @@ function parse_bill(bill, active) {
         bill.active_or_new = "new";
     }
     bill.bill_type = bill.bill_type.toUpperCase();
-    bill.favorite = false;
     return bill;
 }
 
@@ -212,8 +214,7 @@ function billsViewController($scope, billsService) {
         $scope.specific_bill = bill;
     }
     $scope.favorite = function(bill) {
-        bill.favorite = true;
-        localStoragePush("bill", bill);
+        localStorageAdd("bill", bill.bill_id, bill);
     }
 }
 
@@ -258,7 +259,6 @@ function parse_committee(c) {
             name: "Senate",
         }
     }
-    c.favorite = false;
     return c;
 }
 
@@ -299,16 +299,76 @@ function committeesViewController($scope, committeesService) {
     $scope.senates = committeesService.getSenates();
     $scope.joints = committeesService.getJoints();
     $scope.favorite = function(c) {
-        c.favorite = true;
-        localStoragePush("committee", c);
+        localStorageAdd("committee", c.committee_id, c);
     };
 }
 
 /*************** #committees ***************/
 /************** favorites ******************/
 
-function favoritesGetController($scope, $http) {
+myApp.service("favoritesService", function(){
+    var fav_legislators = {};
+    var fav_committees = {};
+    var fav_bills = {};
+    var favoritesService = {};
+    favoritesService.getLegislators = function() {
+        return fav_legislators;
+    };
+    favoritesService.setLegislators = function(l) {
+        for (var k in l) {
+            console.log(k, l[k]);
+            fav_legislators[k] = l[k];
+        }
+    };
+    favoritesService.getCommittees = function() {
+        return fav_committees;
+    };
+    favoritesService.setCommittees = function(c) {
+        for (var k in c) {
+            fav_committees[k] = l[k];
+        }
+    };
+    favoritesService.getBills = function() {
+        return fav_bills;
+    };
+    favoritesService.setBills = function(b) {
+        for (var k in b) {
+            fav_bills[k] = b[k];
+        }
+    };
+    return favoritesService;
+});
 
+function favoritesGetController($scope, favoritesService) {
+    $scope.load = function () {
+        favoritesService.setLegislators(localStorageGet("legislator"));
+        favoritesService.setBills(localStorageGet("bill"));
+        favoritesService.setCommittees(localStorageGet("committee"));
+    };
+}
+
+function favoritesViewController($scope, legislatorsService, billsService, favoritesService) {
+    $scope.favorite_legislators = favoritesService.getLegislators();
+    $scope.favorite_bills = favoritesService.getBills();
+    $scope.favorite_committees = favoritesService.getCommittees();
+    $scope.favorite_legislator_detail_click = function(l) {
+        angular.element("#legislators").trigger('click');
+    };
+    $scope.delete_legislator = function(l) {
+        localStorageDelete("legislator", l.bioguide_id);
+        delete $scope.favorite_legislators[l.bioguide_id];
+    };
+    $scope.favorite_bill_detail_click = function(b) {
+        angular.element("#bllls").triggerHandler('click');
+    };
+    $scope.delete_bill = function(b) {
+        localStorageDelete("bill", b.bill_id);
+        delete $scope.favorite_bills[b.bill_id];
+    };
+    $scope.delete_committee = function(c) {
+        localStorageDelete("committee", c.committee_id);
+        delete $scope.favorite_committees[c.committee_id];
+    };
 }
 
 /************** #favorites *****************/
@@ -321,3 +381,4 @@ myApp.controller('billsViewController', billsViewController);
 myApp.controller('committeesGetController', committeesGetController);
 myApp.controller('committeesViewController', committeesViewController);
 myApp.controller('favoritesGetController', favoritesGetController);
+myApp.controller('favoritesViewController', favoritesViewController);

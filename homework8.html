@@ -49,7 +49,7 @@
           </li>
           <li>
               <div class="row" ng-controller="favoritesGetController">
-              <a data-toggle="tab" href="#favorites_view" id="favorites"><span class="glyphicon glyphicon-star-empty"></span> <span class="hidden-xs">Favorites</span></a>
+              <a data-toggle="tab" href="#favorites_view" id="favorites" ng-click="load()"><span class="glyphicon glyphicon-star-empty"></span> <span class="hidden-xs">Favorites</span></a>
               </div>
           </li>
         </ul>
@@ -251,10 +251,10 @@
                     <!-- # basic -->
                     <!-- detail -->
                     <div class="item">
-                      <div class="container-fluid">
+                      <div class="container-fluid" id="legislators_detail_view">
                         <div class="row">
                           <div class="col-md-10">
-                          <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>Details</a>
+                          <a class="left btn btn-default btn-sm" href="#legislator_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
                           </div>
                           <div class="col-md-2">
                           <div class="btn btn-default-sm" ng-click="favorite(specific_legislator)"><span class="glyphicon glyphicon-star-empty"></span></div>
@@ -455,8 +455,11 @@
                     <div class="item">
                       <div class="container-fluid">
                         <div class="row">
-                          <div class="col-md-12">
-                          <a class="left btn btn-default btn-sm" href="#bill_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>Details</a>
+                          <div class="col-md-10">
+                          <a class="left btn btn-default btn-sm" href="#bill_carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>Details
+                          </div>
+                          <div class="col-md-2">
+                            <div class="btn btn-default-sm" ng-click="favorite(specific_bill)"><span class="glyphicon glyphicon-star-empty"></span></div>
                           </div>
                         </div>
 
@@ -659,10 +662,75 @@
           </div>
           <!-- #committees_view -->
           <!-- favorites_view -->
-          <div id="favorites_view" class="tab-pane fade">
+          <div id="favorites_view" class="tab-pane fade" ng-controller="favoritesViewController">
             <div class="row">
               <div class="col-md-12 col-lg-12">
-                  <h2>favorites pending</h2>
+                <h2>Favorites</h2>
+                <hr />
+                <!-- basic -->
+                <div class="item active" id="favorite_basic_view">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#favorite_legislator">Legislators</a></li>
+                    <li><a data-toggle="tab" href="#favorite_bill">Bills</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#favorite_committee">Committees</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <!-- legislator -->
+                    <div id="favorite_legislator" class="tab-pane fade in active">
+                      <hr>
+                      <div class="panel panel-default">
+                        <div class="panel-body" id="favorite_legislator_basic_table">
+                          <table class="table table-hover">
+                          <tr>
+                          <div class="tablecaption row">
+                            <div class="col-md-9 col-sm-8 col-xs-6 h5">Legislators</div>
+                          </tr>
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Image</th>
+                              <th>Party</th>
+                              <th>Name</th>
+                              <th>Chamber</th>
+                              <th>State</th>
+                              <th>Email</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody ng-cloak>
+                            <tr ng-repeat="(id, l) in favorite_legislators">
+                              <td><div class="btn btn-default-sm" ng-click="delete_legislator(l)"><span class="glyphicon glyphicon-trash"></span></div>
+                              </td>
+                              <td><img alt="bio_img" width="25" src="https://theunitedstates.io/images/congress/original/{{l.bioguide_id}}.jpg">
+                              </td>
+                              <td><img src="{{ l.party.src }}" alt="party" width="25">
+                              </td>
+                              <td>{{ l.last_name + " " + l.first_name }}
+                              </td>
+                              <td><img src="{{ l.chamber.src }}" alt="chamber" width="25">{{ l.chamber.name }}</td>
+                              <td>{{ l.state_name }}</td>
+                              <td><a href="mailto:{{ l.oc_email }}">{{ l.oc_email }}</a></td>
+                              <td><a class="right btn btn-primary" href="#favorite_carousel" role="button" ng-click="favorite_legislator_detail_click(l)">View Details</a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- # legislators -->
+                    <!-- Bills -->
+      
+                    <!-- # Bills -->
+                    <!-- committees -->
+                    
+                    <!-- # committees -->
+                    <!--  detail -->
+                    <!-- # detail -->
+                  </div>
+                </div>
+                <!-- # basic -->
               </div>
             </div>
           </div>

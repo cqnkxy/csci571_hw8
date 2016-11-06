@@ -87,6 +87,10 @@
     background: none;
 }
 
+.glyphicon-trash:hover {
+    color: red;
+}
+
 #legislators_basic_table, #legislators_house_table,
 #legislators_senate_table, #new_bills_basic_table, 
 #active_bills_basic_table, #committee_house_basic_table,
