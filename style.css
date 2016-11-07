@@ -14,6 +14,14 @@
     background: white;
 }
 
+#hamburger {
+    padding-left: 0px;
+}
+
+#menu-toggle, #con_api {
+    color: black;
+}
+
 #wrapper {
     padding-left: 0;
     padding-top: 50px;
@@ -91,6 +99,14 @@
     color: red;
 }
 
+#selectpicker{
+    width: 85%;
+}
+
+input {
+    width: 85%;
+}
+
 #legislators_basic_table, #legislators_house_table,
 #legislators_senate_table, #new_bills_basic_table, 
 #active_bills_basic_table, #committee_house_basic_table,
@@ -108,16 +124,18 @@
     overflow: hidden;
 }
 
-.glyphicon-star {
+.glyphicon-star, .glyphicon-chevron-left {
     font-size: 25px;
 }
 
 .yellow_star {
     color: yellow;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .pale_star {
     color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .tablecaption{
@@ -133,41 +151,11 @@
     overflow-x: scroll;
 }
 
-@media(min-width:768px) {
-    #page-content-wrapper {
-        width: 100%;
-        position: fixed;
-        padding: 15px;
-    }
-
-    #wrapper {
-        padding-left: 180px;
-    }
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 200px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
+.detail_back {
+    font-size: 1.1em;
 }
 
-@media(max-width: 767px) {
+@media only screen and (max-width: 767px) {
     .bio_img{
         text-align: center;
     }
@@ -188,6 +176,40 @@
 
     #sidebar-wrapper {
         width: 50px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+@media(min-width:768px) {
+    #page-content-wrapper {
+        width: 100%;
+        position: fixed;
+        padding: 15px;
+    }
+
+    #wrapper {
+        padding-left: 180px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 200px;
     }
 
     #wrapper.toggled #sidebar-wrapper {

@@ -155,7 +155,7 @@ function legislatorsViewController($scope, $http, legislatorsService) {
         if (l.bioguide_id in localStorageGet('legislator')) {
             return "yellow_star";
         } else {
-            return "white_star";
+            return "pale_star";
         }
     };
 }
@@ -242,7 +242,7 @@ function billsViewController($scope, billsService) {
         if (b.bill_id in localStorageGet('bill')) {
             return "yellow_star";
         } else {
-            return "white_star";
+            return "pale_star";
         }
     };
 }
@@ -337,7 +337,7 @@ function committeesViewController($scope, committeesService) {
         if (c.committee_id in localStorageGet('committee')) {
             return "yellow_star";
         } else {
-            return "white_star";
+            return "pale_star";
         }
     };
 }
