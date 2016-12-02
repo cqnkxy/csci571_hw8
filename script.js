@@ -83,7 +83,7 @@ function parse_legislator(l) {
 
 function sort_state_lastname(legislators) {
     legislators.sort(function(a, b){
-        var cmp1 = a.state.localeCompare(b.state);
+        var cmp1 = a.state_name.localeCompare(b.state_name);
         if (cmp1 == 0) {
             return a.last_name.localeCompare(b.last_name);
         } else {
@@ -96,7 +96,7 @@ function legislatorsGetController($scope, $http, legislatorsService) {
     var legislator_get = function() {
         legislators = legislatorsService.list();
         if (legislators.length == 0) {
-            $http.get("congress.php?legislators=true")
+            $http.get("index.php?legislators=true")
             .then(function(response) {
                 var vec = response.data.results;
                 for (var i=0; i<vec.length; i++) {
@@ -122,7 +122,7 @@ function legislatorsGetController($scope, $http, legislatorsService) {
             });
         }
     };
-    angular.element(document).ready(legislator_get);
+    legislator_get();
 }
 
 function legislatorsViewController($scope, $http, legislatorsService) {
@@ -135,7 +135,7 @@ function legislatorsViewController($scope, $http, legislatorsService) {
         $scope.progress = Math.round(100*(new Date() - new Date(l.term_start))
             / (new Date(l.term_end) - new Date(l.term_start)));
         $scope.specific_legislator = l;
-        $http.get(`congress.php?legislator_details=true&bioguide_id=${l.bioguide_id}`)
+        $http.get(`index.php?legislator_details=true&bioguide_id=${l.bioguide_id}`)
         .then(function(response) {
             $scope.bills = response.data[0].results.splice(0, 5);
             $scope.committees = response.data[1].results.splice(0, 5);
@@ -206,7 +206,7 @@ function billsGetController($scope, $http, billsService) {
         active_bills = billsService.getActiveBills();
         new_bills = billsService.getNewBills();
         if (active_bills.length == 0) {
-            $http.get("congress.php?bills=true")
+            $http.get("index.php?bills=true")
             .then(function(response) {
                 var vec_active = response.data[0].results.splice(0, 50);
                 var vec_new = response.data[1].results.splice(0, 50);
@@ -214,10 +214,16 @@ function billsGetController($scope, $http, billsService) {
                     active_bills.push(parse_bill(vec_active[i], true));
                     new_bills.push(parse_bill(vec_new[i], false));
                 }
+                active_bills.sort(function(a, b){
+                    return b.introduced_on.localeCompare(a.introduced_on);
+                });
+                new_bills.sort(function(a, b){
+                    return b.introduced_on.localeCompare(a.introduced_on);
+                });
             });
         }
     };
-    angular.element(document).ready(bill_get);
+    bill_get();
 }
 
 function billsViewController($scope, billsService) {
@@ -299,7 +305,7 @@ function committeesGetController($scope, $http, committeesService) {
         c_senates = committeesService.getSenates();
         c_joints = committeesService.getJoints();
         if (c_houses.length == 0) {
-            $http.get("congress.php?committees=true")
+            $http.get("index.php?committees=true")
             .then(function(response) {
                 var h = response.data[0].results;
                 var s = response.data[1].results;
@@ -319,7 +325,7 @@ function committeesGetController($scope, $http, committeesService) {
             });
         }
     };
-    angular.element(document).ready(committee_get);
+    committee_get();
 }
 
 function committeesViewController($scope, committeesService) {

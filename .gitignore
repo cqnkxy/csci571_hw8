@@ -1,3 +1,4 @@
 *.pdf
-bootstrap*
+bootstrap
 test.html
+.DS_Store

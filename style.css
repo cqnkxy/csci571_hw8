@@ -37,7 +37,7 @@
     position: fixed;
     left: 0px;
     width: 0;
-    height: 100%;
+    height: 150%;
     margin-left: -10px;
     overflow-y: auto;
     background: #000;
@@ -105,6 +105,12 @@
 
 input {
     width: 85%;
+}
+
+.nav-tabs > li > a{
+    border: medium none;
+    border-radius: 0;
+    color: black;
 }
 
 #legislators_basic_table, #legislators_house_table,

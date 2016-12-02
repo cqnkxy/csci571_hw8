@@ -83,10 +83,10 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">
                               <div class="row">
-                              <div class="col-lg-9 col-xs-6">
+                              <div class="col-lg-9 col-md-9 col-sm-9  col-xs-6">
                                 Legislators By State
                               </div>
-                              <div class="col-lg-3 col-xs-6">
+                              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                 <select id= "selectpicker" class="selectpicker" ng-model="search.state_name">
                                   <option value=''>All States</option>
                                   <option>Alabama</option>
@@ -161,7 +161,7 @@
                                 </tr>
                               </thead>
                               <tbody ng-cloak>
-                                <tr dir-paginate="legislator in legislators | filter: search : bool(search.state)| itemsPerPage: 10" pagination-id="pagination_state">
+                                <tr dir-paginate="legislator in legislators | filter: search : (search.state_name ? true : false) | itemsPerPage: 10" pagination-id="pagination_state">
                                   <td><img ng-src="{{ legislator.party.src }}" width='25'/></td>
                                   <td>{{ legislator.last_name + " " + legislator.first_name}} </td>
                                   <td><img ng-src="{{ legislator.chamber.src }}" width='25'/> {{ legislator.chamber.name }}</td>
@@ -181,10 +181,10 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">
                               <div class="row">
-                                <div class="col-lg-9 col-xs-6">
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
                                   Legislators By House
                                 </div>
-                                <div class="col-lg-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                   <input placeholder="Search" ng-model="house">
                                 </div>
                               </div>
@@ -222,10 +222,10 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">
                               <div class="row">
-                                <div class="col-lg-9 col-xs-6">
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
                                   Legislators By Senate
                                 </div>
-                                <div class="col-lg-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                   <input placeholder="Search" ng-model="senate">
                                 </div>
                               </div>
